@@ -1,0 +1,35 @@
+{
+  "season": "season-0",
+  "season_title": "Season 0",
+  "start": "s0-v000",
+  "current": "s0-v002",
+  "versions": [
+    {
+      "id": "s0-v000",
+      "title": "Just a Cube",
+      "summary": "The starting point. One cube, one floor, a camera you can orbit.",
+      "author": "IJAC",
+      "date": "2026-11-10",
+      "status": "base",
+      "scene": "res://scenes/versions/v000.tscn"
+    },
+    {
+      "id": "s0-v001",
+      "title": "Movement",
+      "summary": "WASD moves the cube relative to the camera. The camera follows.",
+      "author": "demo (simulated PR-001)",
+      "date": "2026-11-10",
+      "status": "demo",
+      "scene": "res://scenes/versions/v001.tscn"
+    },
+    {
+      "id": "s0-v002",
+      "title": "Jump",
+      "summary": "Space makes the cube jump. Gravity pulls it back down.",
+      "author": "demo (simulated PR-002)",
+      "date": "2026-11-10",
+      "status": "demo",
+      "scene": "res://scenes/versions/v002.tscn"
+    }
+  ]
+}

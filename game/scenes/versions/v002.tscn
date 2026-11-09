@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/orbit_camera.gd" id="2_orbit"]
+[ext_resource type="Texture2D" path="res://textures/cube_logo.png" id="3_cube"]
+[ext_resource type="Texture2D" path="res://textures/floor_grid.png" id="4_floor"]
+[ext_resource type="Script" path="res://scripts/versions/v002/cube_move.gd" id="5_move"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cube"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cube"]
+albedo_texture = ExtResource("3_cube")
+roughness = 0.7
+texture_filter = 5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+size = Vector2(600, 600)
+
+[sub_resource type="StandardMaterial3D" id="Mat_floor"]
+albedo_texture = ExtResource("4_floor")
+roughness = 0.95
+uv1_scale = Vector3(150, 150, 1)
+texture_filter = 5
+
+[sub_resource type="Environment" id="Env_main"]
+background_mode = 1
+background_color = Color(0.22, 0.22, 0.24, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.7, 0.7, 0.75, 1)
+ambient_light_energy = 0.6
+fog_enabled = true
+fog_light_color = Color(0.22, 0.22, 0.24, 1)
+fog_density = 0.01
+
+[node name="Version" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_main")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+position = Vector3(0, 5, 0)
+rotation = Vector3(-0.872665, 0.523599, 0)
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_floor")
+surface_material_override/0 = SubResource("Mat_floor")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1, 0)
+script = ExtResource("5_move")
+mesh = SubResource("BoxMesh_cube")
+surface_material_override/0 = SubResource("Mat_cube")
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(0, 1, 0)
+rotation = Vector3(-0.3718, 0.6747, 0)
+script = ExtResource("2_orbit")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+position = Vector3(0, 0, 9)
+current = true
+fov = 60.0
+far = 1000.0
