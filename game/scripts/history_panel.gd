@@ -47,7 +47,7 @@ func _build() -> void:
 	add_child(_panel)
 
 	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 8)
+	box.add_theme_constant_override("separation", 6)
 	_panel.add_child(box)
 
 	var title := Label.new()
@@ -79,6 +79,7 @@ func _build() -> void:
 
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.custom_minimum_size = Vector2(0, 50)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	box.add_child(scroll)
 
@@ -105,14 +106,23 @@ func _build() -> void:
 
 	box.add_child(HSeparator.new())
 
+	var detail_scroll := ScrollContainer.new()
+	detail_scroll.custom_minimum_size = Vector2(0, 50)
+	detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	detail_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	box.add_child(detail_scroll)
+
 	_detail = Label.new()
 	_detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_detail.custom_minimum_size = Vector2(0, 130)
+	_detail.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_detail.add_theme_font_size_override("font_size", 14)
-	box.add_child(_detail)
+	detail_scroll.add_child(_detail)
 
 	var hint := Label.new()
-	hint.text = "H hide   F11 fullscreen   Esc quit"
+	if OS.has_feature("web"):
+		hint.text = "H hide   F fullscreen"
+	else:
+		hint.text = "H hide   F / F11 fullscreen   Esc quit"
 	hint.add_theme_font_size_override("font_size", 12)
 	hint.modulate = Color(1, 1, 1, 0.45)
 	box.add_child(hint)
